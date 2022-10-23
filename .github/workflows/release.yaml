@@ -33,6 +33,13 @@ jobs:
     - name: Create Github Release
       uses: ncipollo/release-action@v1
       with:
+        body: |
+          This is body 
+          **Yes** this is 
+          _Don't believe it?_
+          - why
+          - are 
+          - you
         artifacts: dist/main.exe
         generateReleaseNotes: true
 
