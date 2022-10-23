@@ -30,7 +30,7 @@ jobs:
         echo $SHELL
         GIT_TAG=${GITHUB_REF#refs/*/}
         echo =======TAG
-        echo $GIT_TAG
+        echo "GIT_TAG=$GIT_TAG" >> $GITHUB_ENV
         TAG_BODY=$(git tag -l --format='%(contents)' $GIT_TAG)
         git tag -l --format='%(contents)' $GIT_TAG >> tag.txt 
         echo =======BODY
@@ -50,6 +50,7 @@ jobs:
       with:
         # body: ${{ env.TAG_BODY }}
         bodyFile: tag.txt
+        name: "Amegma Galaxy Attack ${{ env.GIT_TAG }}"
         artifacts: dist/main.exe
         generateReleaseNotes: true
 
