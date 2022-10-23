@@ -32,9 +32,11 @@ jobs:
         echo =======TAG
         echo $GIT_TAG
         TAG_BODY=$(git tag -l --format='%(contents)' $GIT_TAG)
+        echo $(git tag -l --format='%(contents)' $GIT_TAG) 
+        echo $(git tag -l --format='%(contents)' $GIT_TAG) >> tag.txt
         echo =======BODY
-        echo $TAG_BODY
-        echo "TAG_BODY=$TAG_BODY" >> $GITHUB_ENV
+        cat tag.txt
+        # echo "TAG_BODY=$TAG_BODY" >> $GITHUB_ENV
 
 
     - uses: actions/setup-python@v4
@@ -47,7 +49,8 @@ jobs:
     - name: Create Github Release
       uses: ncipollo/release-action@v1
       with:
-        body: ${{ env.TAG_BODY }}
+        # body: ${{ env.TAG_BODY }}
+        bodyFile: tag.txt
         artifacts: dist/main.exe
         generateReleaseNotes: true
 
