@@ -28,8 +28,9 @@ jobs:
     - run: |
         pip3 install -r requirements.txt pyinstaller
         pyinstaller .\main.spec
-        export GIT_TAG=${GITHUB_REF#refs/*/}
-        export TAG_BODY=${git tag -l --format='%(contents)' $GIT_TAG}
+        echo $SHELL
+        set GIT_TAG=${GITHUB_REF#refs/*/}
+        set TAG_BODY=${git tag -l --format='%(contents)' $GIT_TAG}
         echo "TAG_BODY=$TAG_BODY" >> $GITHUB_ENV
 
     - name: Create Github Release
