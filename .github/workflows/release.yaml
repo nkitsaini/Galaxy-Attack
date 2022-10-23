@@ -21,17 +21,19 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     - uses: actions/checkout@v3
+    - run: |
+        echo $SHELL
+        echo "ANYTHING AT ALL"
     - uses: actions/setup-python@v4
       with:
         python-version: 3.10
         cache: 'pip'
     - run: |
+        echo "TAG_BODY=${git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/}}" >> $GITHUB_ENV
+        echo "=============================="
+        echo ${git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/}}
         pip3 install -r requirements.txt pyinstaller
         pyinstaller .\main.spec
-        echo $SHELL
-        set GIT_TAG=${GITHUB_REF#refs/*/}
-        set TAG_BODY=${git tag -l --format='%(contents)' $GIT_TAG}
-        echo "TAG_BODY=$TAG_BODY" >> $GITHUB_ENV
 
     - name: Create Github Release
       uses: ncipollo/release-action@v1
