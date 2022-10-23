@@ -30,7 +30,7 @@ jobs:
         GIT_TAG=${GITHUB_REF#refs/*/}
         echo =======TAG
         echo $GIT_TAG
-        TAG_BODY=${git tag -l --format='%(contents)' $GIT_TAG}
+        TAG_BODY=$(git tag -l --format='%(contents)' $GIT_TAG)
         echo =======BODY
         echo $TAG_BODY
         echo "TAG_BODY=$TAG_BODY" >> $GITHUB_ENV
