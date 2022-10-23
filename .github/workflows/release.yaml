@@ -1,6 +1,4 @@
-# This is a basic workflow to help you get started with Actions
-
-name: Generate Release EXE
+name: Github Release
 
 # Controls when the workflow will run
 on:
@@ -24,20 +22,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     - uses: actions/checkout@v3
-    - run: |
+    - name: Set Env
+      run: |
         git fetch --tags -f
-        echo =======SHELL
-        echo $SHELL
         GIT_TAG=${GITHUB_REF#refs/*/}
-        echo =======TAG
         echo "GIT_TAG=$GIT_TAG" >> $GITHUB_ENV
-        TAG_BODY=$(git tag -l --format='%(contents)' $GIT_TAG)
         git tag -l --format='%(contents)' $GIT_TAG >> tag.txt 
-        echo =======BODY
         cat tag.txt
-        # echo "TAG_BODY=$TAG_BODY" >> $GITHUB_ENV
-
-
     - uses: actions/setup-python@v4
       with:
         python-version: 3.10
