@@ -32,8 +32,7 @@ jobs:
         echo =======TAG
         echo $GIT_TAG
         TAG_BODY=$(git tag -l --format='%(contents)' $GIT_TAG)
-        echo $(git tag -l --format='%(contents)' $GIT_TAG) 
-        echo $(git tag -l --format='%(contents)' $GIT_TAG) >> tag.txt
+        git tag -l --format='%(contents)' $GIT_TAG >> tag.txt 
         echo =======BODY
         cat tag.txt
         # echo "TAG_BODY=$TAG_BODY" >> $GITHUB_ENV
