@@ -27,16 +27,15 @@ jobs:
     - run: |
         pip3 install -r requirements.txt pyinstaller
         pyinstaller .\main.spec
-        ls
-    # - name: Create Github Release
-    #   uses: ncipollo/release-action@v1
-    #   with:
-    #     commit: ${{ github.sha }}
-    #     tag: ${{ env.app_tag }}
-    #     artifacts: "build/app/outputs/flutter-apk/app-release.apk"
+        ls dist
 
-    # - name: Save APK to Artifacts
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: APK
-    #     path: build/app/outputs/flutter-apk/app-release.apk
+    - name: Create Github Release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: dist/main.exe
+
+    - name: Save APK to Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: APK
+        path: dist/main.exe
