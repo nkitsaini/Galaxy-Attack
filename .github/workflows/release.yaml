@@ -28,18 +28,13 @@ jobs:
     - run: |
         pip3 install -r requirements.txt pyinstaller
         pyinstaller .\main.spec
-        ls dist
+        TAG_BODY=git tag -l --format='%(contents)' ${GITHUB_REF#refs/*/}
+        echo "TAG_BODY=$TAG_BODY" >> $GITHUB_ENV
 
     - name: Create Github Release
       uses: ncipollo/release-action@v1
       with:
-        body: |
-          This is body 
-          **Yes** this is 
-          _Don't believe it?_
-          - why
-          - are 
-          - you
+        body: ${{ env.TAG_BODY }}
         artifacts: dist/main.exe
         generateReleaseNotes: true
 
