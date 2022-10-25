@@ -3,7 +3,7 @@ name: Github Release
 # Controls when the workflow will run
 on:
   release:
-    types: [published]
+    types: [created]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -11,7 +11,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  release:
     # The type of runner that the job will run on
     runs-on: windows-latest
     defaults:
@@ -21,12 +21,6 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     - uses: actions/checkout@v3
-
-    - name: Set Env
-      run: |
-        git fetch --tags -f
-        GIT_TAG=${GITHUB_REF#refs/*/}
-        echo "GIT_TAG=$GIT_TAG" >> $GITHUB_ENV
 
     - uses: actions/setup-python@v4
       with:
